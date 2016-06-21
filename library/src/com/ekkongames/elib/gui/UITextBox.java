@@ -89,14 +89,14 @@ public class UITextBox extends UIElement {
     textBuffer.endDraw();
   }
 
-  void update() {
+  private void update() {
     if (focused && mgr.app.millis() - cursorLastToggled >= CURSOR_BLINK_FREQUENCY) {
       cursorLastToggled = mgr.app.millis();
       cursorShowing = !cursorShowing;
     }
   }
 
-  public void render() {
+  protected void render() {
     if (shouldRefresh > 0) {
       if (shouldRefresh == 1) {
         shouldRefresh = 0;
@@ -171,7 +171,7 @@ public class UITextBox extends UIElement {
     return text;
   }
 
-  void mouseMoved() {
+  protected void mouseMoved() {
     if (mgr.isTop(this, mgr.app.mouseX, mgr.app.mouseY)) {
       hoverState = hoverState == 2 ? 2 : 1;
     } else {
@@ -184,16 +184,19 @@ public class UITextBox extends UIElement {
       hoverState = -1;
       mgr.app.cursor(ARROW);
     }
+    super.mouseMoved();
   }
 
-  void mouseDragged() {
+  protected void mouseDragged() {
     int index = getClosestIndex(mgr.app.mouseX);
 
     setSelection(index - cursorPosition);
     updateSelection();
+    
+    super.mouseDragged();
   }
 
-  void mousePressed() {
+  protected void mousePressed() {
     if (mgr.isTop(this, mgr.app.mouseX, mgr.app.mouseY) && mgr.app.mouseButton == LEFT) {
       focus();
       setCursorPosition(getClosestIndex(mgr.app.mouseX));
@@ -201,12 +204,11 @@ public class UITextBox extends UIElement {
       unfocus();
     }
     updateSelection();
+    
+    super.mousePressed();
   }
 
-  void mouseReleased() {
-  }
-
-  void keyPressed() {
+  protected void keyPressed() {
     if (focused) {
       boolean selection = isSelection();
       if (mgr.app.key != CODED) {
@@ -358,9 +360,11 @@ public class UITextBox extends UIElement {
       }
     }
     updateSelection();
+    
+    super.keyPressed();
   }
 
-  void keyReleased() {
+  protected void keyReleased() {
     if (mgr.app.key == CODED) {
       switch (mgr.app.keyCode) {
         case CONTROL:
@@ -378,6 +382,7 @@ public class UITextBox extends UIElement {
         mgr.canTab = true;
       }
     }
+    super.keyReleased();
   }
 
   private void updateSelection() {

@@ -3,6 +3,9 @@ package com.ekkongames.elib.gui;
 import processing.core.PConstants;
 import com.ekkongames.elib.manip.Numbers;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public abstract class UIElement implements PConstants {
   
   private HashMap<Integer, ArrayList<UIListener>> listeners
@@ -91,58 +94,94 @@ public abstract class UIElement implements PConstants {
 
   protected void mouseMoved() {
     ArrayList<UIListener> list = listeners.get(UIListener.MOUSE_MOVED);
+    if (list == null) {
+      return;
+    }
+    
     for (UIListener listener : list) {
-      list.trigger();
+      listener.onTrigger();
     }
   }
   protected void mouseDragged() {
     ArrayList<UIListener> list = listeners.get(UIListener.MOUSE_DRAGGED);
+    if (list == null) {
+      return;
+    }
+    
     for (UIListener listener : list) {
-      list.trigger();
+      listener.onTrigger();
     }
   }
   protected void mousePressed() {
     ArrayList<UIListener> list = listeners.get(UIListener.MOUSE_PRESSED);
+    if (list == null) {
+      return;
+    }
+    
     for (UIListener listener : list) {
-      list.trigger();
+      listener.onTrigger();
     }
   }
   protected void mouseReleased() {
     ArrayList<UIListener> list = listeners.get(UIListener.MOUSE_RELEASED);
+    if (list == null) {
+      return;
+    }
+    
     for (UIListener listener : list) {
-      list.trigger();
+      listener.onTrigger();
     }
   }
   protected void mouseClicked() {
     ArrayList<UIListener> list = listeners.get(UIListener.MOUSE_CLICKED);
+    if (list == null) {
+      return;
+    }
+    
     for (UIListener listener : list) {
-      list.trigger();
+      listener.onTrigger();
     }
   }
 
   protected void keyPressed() {
     ArrayList<UIListener> list = listeners.get(UIListener.KEY_PRESSED);
+    if (list == null) {
+      return;
+    }
+    
     for (UIListener listener : list) {
-      list.trigger();
+      listener.onTrigger();
     }
   }
   protected void keyReleased() {
     ArrayList<UIListener> list = listeners.get(UIListener.KEY_RELEASED);
+    if (list == null) {
+      return;
+    }
+    
     for (UIListener listener : list) {
-      list.trigger();
+      listener.onTrigger();
     }
   }
   protected void keyTyped() {
     ArrayList<UIListener> list = listeners.get(UIListener.KEY_TYPED);
+    if (list == null) {
+      return;
+    }
+    
     for (UIListener listener : list) {
-      list.trigger();
+      listener.onTrigger();
     }
   }
   
   protected void submit() {
     ArrayList<UIListener> list = listeners.get(UIListener.SUBMIT);
+    if (list == null) {
+      return;
+    }
+    
     for (UIListener listener : list) {
-      list.trigger();
+      listener.onTrigger();
     }
   }
 }

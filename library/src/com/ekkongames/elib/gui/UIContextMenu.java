@@ -25,13 +25,14 @@ public class UIContextMenu extends UIMenu {
     hide();
   }
   
-  void mousePressed() {
+  protected void mousePressed() {
     if (mgr.mouseButton == RIGHT) {
       show();
       updatePositions(mgr.mouseX, mgr.mouseY);
     } else if (!containsPoint(mgr.mouseX, mgr.mouseY)) {
       hide();
     }
+    super.mousePressed();
   }
   
   private void updatePositions(float x, float y) {

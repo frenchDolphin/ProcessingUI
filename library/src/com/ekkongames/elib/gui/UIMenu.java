@@ -49,7 +49,7 @@ public class UIMenu extends UIElement {
     mgr.add(child);
   }
   
-  void render() {
+  protected void render() {
     mgr.app.stroke(155);
     mgr.app.fill(255);
     mgr.app.rect(x, y, elWidth, elHeight);

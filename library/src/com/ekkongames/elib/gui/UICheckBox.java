@@ -30,7 +30,7 @@ public class UICheckBox extends UIElement {
     this.elHeight = size;
   }
 
-  void render() {
+  protected void render() {
     updateColour();
 
     if (isFocused()) {
@@ -63,18 +63,20 @@ public class UICheckBox extends UIElement {
     checked = !checked;
   }
 
-  void mousePressed() {
+  protected void mousePressed() {
     if (containsPoint(mgr.mouseX, mgr.mouseY)) {
       toggle();
     }
+    super.mousePressed();
   }
 
-  void keyPressed() {
+  protected void keyPressed() {
     if (mgr.key == TAB) {
       mgr.cycleFocus(this);
     } else if ((mgr.key == ' ' || mgr.key == ENTER) && isFocused()) {
       toggle();
     }
+    super.keyPressed();
   }
 
   private void updateColour() {

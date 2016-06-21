@@ -3,9 +3,15 @@ package com.ekkongames.elib.gui;
 import processing.core.PConstants;
 import com.ekkongames.elib.manip.Numbers;
 
-public abstract class UIElement implements PConstants {
+import java.util.ArrayList;
+import java.util.HashMap;
 
-  abstract void render();
+public abstract class UIElement implements PConstants {
+  
+  private HashMap<Integer, ArrayList<UIListener>> listeners
+    = new HashMap<>();
+
+  protected abstract void render();
 
   /**
    * Runs whenever this <code>UIElement</code> receives focus in its parent {@link UIManager}.
@@ -30,7 +36,7 @@ public abstract class UIElement implements PConstants {
   protected int zIndex = 0;
   protected UIManager mgr;
 
-  boolean containsPoint(float px, float py) {
+  public boolean containsPoint(float px, float py) {
     return Numbers.between(px, x, x + elWidth)
         && Numbers.between(py, y, y + elHeight);
   }
@@ -61,6 +67,16 @@ public abstract class UIElement implements PConstants {
   public boolean isVisible() {
     return visible;
   }
+  
+  public void addListener(UIListener listener) {
+    if (listener != null) {
+      int id = listener.getTrigger();
+      if (!listeners.containsKey(id)) {
+        listeners.put(id, new ArrayList<>());
+      }
+      listeners.get(id).add(listener);
+    }
+  }
 
   /**
    * Returns the z-index of this element. This number is used in the parent {@link UIManager}
@@ -76,21 +92,96 @@ public abstract class UIElement implements PConstants {
     this.mgr = mgr;
   }
 
-  void mouseMoved() {
+  protected void mouseMoved() {
+    ArrayList<UIListener> list = listeners.get(UIListener.MOUSE_MOVED);
+    if (list == null) {
+      return;
+    }
+    
+    for (UIListener listener : list) {
+      listener.onTrigger();
+    }
   }
-  void mouseDragged() {
+  protected void mouseDragged() {
+    ArrayList<UIListener> list = listeners.get(UIListener.MOUSE_DRAGGED);
+    if (list == null) {
+      return;
+    }
+    
+    for (UIListener listener : list) {
+      listener.onTrigger();
+    }
   }
-  void mousePressed() {
+  protected void mousePressed() {
+    ArrayList<UIListener> list = listeners.get(UIListener.MOUSE_PRESSED);
+    if (list == null) {
+      return;
+    }
+    
+    for (UIListener listener : list) {
+      listener.onTrigger();
+    }
   }
-  void mouseReleased() {
+  protected void mouseReleased() {
+    ArrayList<UIListener> list = listeners.get(UIListener.MOUSE_RELEASED);
+    if (list == null) {
+      return;
+    }
+    
+    for (UIListener listener : list) {
+      listener.onTrigger();
+    }
   }
-  void mouseClicked() {
+  protected void mouseClicked() {
+    ArrayList<UIListener> list = listeners.get(UIListener.MOUSE_CLICKED);
+    if (list == null) {
+      return;
+    }
+    
+    for (UIListener listener : list) {
+      listener.onTrigger();
+    }
   }
 
-  void keyPressed() {
+  protected void keyPressed() {
+    ArrayList<UIListener> list = listeners.get(UIListener.KEY_PRESSED);
+    if (list == null) {
+      return;
+    }
+    
+    for (UIListener listener : list) {
+      listener.onTrigger();
+    }
   }
-  void keyReleased() {
+  protected void keyReleased() {
+    ArrayList<UIListener> list = listeners.get(UIListener.KEY_RELEASED);
+    if (list == null) {
+      return;
+    }
+    
+    for (UIListener listener : list) {
+      listener.onTrigger();
+    }
   }
-  void keyTyped() {
+  protected void keyTyped() {
+    ArrayList<UIListener> list = listeners.get(UIListener.KEY_TYPED);
+    if (list == null) {
+      return;
+    }
+    
+    for (UIListener listener : list) {
+      listener.onTrigger();
+    }
+  }
+  
+  protected void submit() {
+    ArrayList<UIListener> list = listeners.get(UIListener.SUBMIT);
+    if (list == null) {
+      return;
+    }
+    
+    for (UIListener listener : list) {
+      listener.onTrigger();
+    }
   }
 }
