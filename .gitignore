@@ -5,7 +5,7 @@
 
 # Tools used for compiling and exporting
 *.bat
-*.cmd
+config.cmd
 
 # Miscellaneous
 ELib.zip
