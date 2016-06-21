@@ -6,15 +6,15 @@ package com.ekkongames.elib.gui;
  * a password field is submitted.
  */
 public abstract class UIListener {
-    public static final int MOUSE_MOVED = 1;
-    public static final int MOUSE_DRAGGED = 3;
-    public static final int MOUSE_PRESSED = 5;
-    public static final int MOUSE_RELEASED = 7;
-    public static final int MOUSE_CLICKED = 9;
-    public static final int KEY_PRESSED = 11;
-    public static final int KEY_RELEASED = 13;
-    public static final int KEY_TYPED = 15;
-    public static final int SUBMIT = 17;
+  public static final int MOUSE_MOVED = 1;
+  public static final int MOUSE_DRAGGED = 3;
+  public static final int MOUSE_PRESSED = 5;
+  public static final int MOUSE_RELEASED = 7;
+  public static final int MOUSE_CLICKED = 9;
+  public static final int KEY_PRESSED = 11;
+  public static final int KEY_RELEASED = 13;
+  public static final int KEY_TYPED = 15;
+  public static final int SUBMIT = 17;
   
   private final int trigger = 0;
 
