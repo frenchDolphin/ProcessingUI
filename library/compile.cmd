@@ -20,7 +20,6 @@ if "%1"=="file" (
 
 if "%1"=="all" (
 	call :compile gui
-	call :compile gui\listeners
 	call :compile io
 	call :compile manip
 ) else (
