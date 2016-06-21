@@ -5,7 +5,7 @@
 
 # Tools used for compiling and exporting
 *.bat
-config.cmd
+*.cmd
 
 # Miscellaneous
 ELib.zip
@@ -17,4 +17,3 @@ ELib.zip
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-*.cmd
