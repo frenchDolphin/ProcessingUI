@@ -8,6 +8,7 @@ set distdocsfolder=%distfolder%\reference
 set distjarfolder=%distfolder%\library
 set distsrcfolder=%distfolder%\src
 set sketchbookfolder=[Replace me with the path to your processing library folder]
+set processingfolder=[Replace me with the path to the folder containing processing.exe]
 
 :: Shell configuration
 set shelltitle=%projectname% (Shell)
