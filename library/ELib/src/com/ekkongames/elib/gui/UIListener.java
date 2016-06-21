@@ -16,7 +16,7 @@ public abstract class UIListener {
   public static final int KEY_TYPED = 15;
   public static final int SUBMIT = 17;
   
-  private final int trigger = 0;
+  private int trigger = 0;
 
   /**
    * Constructs a new <code>UIListener</code> with a trigger.
@@ -24,6 +24,7 @@ public abstract class UIListener {
    * @param trigger the type of event to listen for
    */
   public UIListener(int trigger) {
+    this.trigger = trigger;
   }
   
   int getTrigger() {
