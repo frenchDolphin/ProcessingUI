@@ -19,6 +19,7 @@ public class UIManager {
 
   public PApplet app;
   private ArrayList<UIElement> elements;
+  private ArrayList<UIElement> focusedElements;
   boolean canTab = true;
   
   char key;
@@ -38,11 +39,12 @@ public class UIManager {
   public UIManager(PApplet app) {
     this.app = app;
     elements = new ArrayList<UIElement>();
+    focusedElements = new ArrayList<UIElement>();
 
     app.registerMethod("mouseEvent", this);
     app.registerMethod("keyEvent", this);
-	
-	app.registerMethod("draw", this);
+    
+    app.registerMethod("draw", this);
   }
 
   /**
@@ -57,6 +59,22 @@ public class UIManager {
   public void add(UIElement element) {
     elements.add(element);
     element.add(this);
+  }
+  
+  public void addFocusedElement(UIElement el) {
+    focusedElements.add(el);
+  }
+  
+  public void removeFocusedElement(UIElement el) {
+    focusedElements.remove(el);
+  }
+  
+  public void unfocus() {
+    for (UIElement el : focusedElements) {
+      if (el.isFocused()) {
+        el.unfocus();
+      }
+    }
   }
 
   /**
@@ -80,7 +98,7 @@ public class UIManager {
       UIElement next = nextElement(elements.indexOf(current) + els);
       if (next.isFocusable() && next.isVisible()) {
         current.unfocus();
-        next.focus();
+        next.doFocus();
       } else if (els < elements.size()) {
         internalCycleFocus(current, els + 1);
       }
@@ -121,7 +139,7 @@ public class UIManager {
   public void mouseEvent(MouseEvent e) {
     mouseX = e.getX();
     mouseY = e.getY();
-	mouseButton = e.getButton();
+    mouseButton = e.getButton();
     switch (e.getAction()) {
       case MouseEvent.MOVE:
         mouseMoved();
@@ -138,7 +156,7 @@ public class UIManager {
       case MouseEvent.CLICK:
         mouseClicked();
         break;
-	}
+    }
   }
 
   /**
@@ -160,7 +178,7 @@ public class UIManager {
       case KeyEvent.TYPE:
         keyTyped();
         break;
-	}
+    }
   }
 
   private void mouseMoved() {

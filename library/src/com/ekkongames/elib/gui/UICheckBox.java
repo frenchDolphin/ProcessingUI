@@ -13,21 +13,49 @@ public class UICheckBox extends UIElement {
   public boolean checked = false;
   public int checkColour = 255;
 
+  /**
+   * Constructs a new <code>UICheckBox</code>.
+   */
   public UICheckBox() {
-    this(50, 50);
+    this(50, 50, 20, 20);
   }
 
   /**
    * Constructs a new <code>UICheckBox</code>, at position (x, y).
    * 
-   * @param x the starting x position
-   * @param y the starting y position
+   * @param x the initial x position
+   * @param y the initial y position
    */
   public UICheckBox(int x, int y) {
+    this(x, y, 20, 20);
+  }
+
+  /**
+   * Constructs a new <code>UICheckBox</code>, at position (x, y),
+   * and with a certain size.
+   * 
+   * @param x the initial x position
+   * @param y the initial y position
+   * @param size the initial size
+   */
+  public UICheckBox(int x, int y, int size) {
+    this(x, y, size, size);
+  }
+
+  /**
+   * Constructs a new <code>UICheckBox</code>, at position (x, y),
+   * and with a certain width and height.
+   * 
+   * @param x the initial x position
+   * @param y the initial y position
+   * @param width the initial width
+   * @param height the initial height
+   */
+  public UICheckBox(int x, int y, int width, int height) {
     this.x = x;
     this.y = y;
-    this.elWidth = size;
-    this.elHeight = size;
+    this.width = width;
+    this.height = height;
   }
 
   protected void render() {
@@ -40,12 +68,12 @@ public class UICheckBox extends UIElement {
     }
 
     mgr.app.stroke(0);
-    mgr.app.rect(x, y, size, size);
+    mgr.app.rect(x, y, width, height);
 
     mgr.app.fill(checkColour);
     mgr.app.noStroke();
 
-    mgr.app.rect(x + padding, y + padding, size - (padding * 2) + 1, size - (padding * 2) + 1);
+    mgr.app.rect(x + padding, y + padding, width - (padding * 2) + 1, height - (padding * 2) + 1);
   }
 
   public void focus() {

@@ -24,8 +24,8 @@ public class UIMenu extends UIElement {
   public UIMenu(float x, float y) {
     this.x = x;
     this.y = y;
-    this.elWidth = 50;
-    this.elHeight = 0;
+    this.width = 50;
+    this.height = 0;
     this.focusable = false;
     
     children = new ArrayList<UIElement>();
@@ -40,9 +40,9 @@ public class UIMenu extends UIElement {
    */
   public void add(UIElement child) {
     child.x = x;
-    child.y = y + elHeight;
-    child.elWidth = elWidth;
-    elHeight += child.elHeight;
+    child.y = y + height;
+    child.width = width;
+    height += child.height;
     child.visible = visible;
     
     children.add(child);
@@ -52,7 +52,7 @@ public class UIMenu extends UIElement {
   protected void render() {
     mgr.app.stroke(155);
     mgr.app.fill(255);
-    mgr.app.rect(x, y, elWidth, elHeight);
+    mgr.app.rect(x, y, width, height);
   }
 
   /**

@@ -71,8 +71,8 @@ public class UITextBox extends UIElement {
   public UITextBox(int x, int y, int xWidth, int yHeight) {
     this.x = x;
     this.y = y;
-    this.elWidth = xWidth;
-    this.elHeight = yHeight;
+    this.width = xWidth;
+    this.height = yHeight;
 
     toolkit = Toolkit.getDefaultToolkit();
   }
@@ -80,8 +80,8 @@ public class UITextBox extends UIElement {
   void add(UIManager mgr) {
     super.add(mgr);
 
-    renderLayer = mgr.app.createGraphics(Math.round(elWidth + 1), Math.round(elHeight + 1));
-    textBuffer = mgr.app.createGraphics(Math.round(elWidth - (padding * 2)), Math.round(elHeight));
+    renderLayer = mgr.app.createGraphics(Math.round(width + 1), Math.round(height + 1));
+    textBuffer = mgr.app.createGraphics(Math.round(width - (padding * 2)), Math.round(height));
 
     textBuffer.beginDraw();
     textBuffer.textFont(mgr.app.createFont("Arial", 40, true), 40);
@@ -107,7 +107,7 @@ public class UITextBox extends UIElement {
       renderLayer.background(204);
 
       renderLayer.fill(backgroundShade);
-      renderLayer.rect(0, 0, elWidth, elHeight);
+      renderLayer.rect(0, 0, width, height);
 
       textBuffer.beginDraw();
       textBuffer.background(0, 0);

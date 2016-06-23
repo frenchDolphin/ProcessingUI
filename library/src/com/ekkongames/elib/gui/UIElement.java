@@ -11,7 +11,33 @@ public abstract class UIElement implements PConstants {
   private HashMap<Integer, ArrayList<UIListener>> listeners
     = new HashMap<>();
 
+  protected boolean focused = false;
+  protected boolean focusable = true;
+  protected boolean visible = true;
+  
+  protected float x, y, width, height;
+  protected int zIndex = 0;
+  protected UIManager mgr;
+
   protected abstract void render();
+
+  /**
+   * Called whenever this <code>UIElement</code> receives focus in its parent {@link UIManager}.
+   */
+  void doFocus() {
+    mgr.unfocus();
+    
+    mgr.addFocusedElement(this);
+    focus();
+  }
+
+  /**
+   * Called whenever this <code>UIElement</code> loses focus in its parent {@link UIManager}.
+   */
+  void doUnfocus() {
+    mgr.removeFocusedElement(this);
+    focus();
+  }
 
   /**
    * Runs whenever this <code>UIElement</code> receives focus in its parent {@link UIManager}.
@@ -20,25 +46,26 @@ public abstract class UIElement implements PConstants {
     focused = true;
   }
 
-
   /**
    * Runs whenever this <code>UIElement</code> loses focus in its parent {@link UIManager}.
    */
   public void unfocus() {
     focused = false;
   }
-
-  protected boolean focused = false;
-  protected boolean focusable = true;
-  protected boolean visible = true;
   
-  protected float x, y, elWidth, elHeight;
-  protected int zIndex = 0;
-  protected UIManager mgr;
+  public void setPosition(int x, int y) {
+    this.x = x;
+    this.x = x;
+  }
+  
+  public void setSize(int width, int height) {
+    this.width = width;
+    this.height = height;
+  }
 
   public boolean containsPoint(float px, float py) {
-    return Numbers.between(px, x, x + elWidth)
-        && Numbers.between(py, y, y + elHeight);
+    return Numbers.between(px, x, x + width)
+        && Numbers.between(py, y, y + height);
   }
 
   /**
@@ -93,89 +120,43 @@ public abstract class UIElement implements PConstants {
   }
 
   protected void mouseMoved() {
-    ArrayList<UIListener> list = listeners.get(UIListener.MOUSE_MOVED);
-    if (list == null) {
-      return;
-    }
-    
-    for (UIListener listener : list) {
-      listener.onTrigger();
-    }
+    triggerListeners(UIListener.MOUSE_MOVED);
   }
+  
   protected void mouseDragged() {
-    ArrayList<UIListener> list = listeners.get(UIListener.MOUSE_DRAGGED);
-    if (list == null) {
-      return;
-    }
-    
-    for (UIListener listener : list) {
-      listener.onTrigger();
-    }
+    triggerListeners(UIListener.MOUSE_DRAGGED);
   }
+  
   protected void mousePressed() {
-    ArrayList<UIListener> list = listeners.get(UIListener.MOUSE_PRESSED);
-    if (list == null) {
-      return;
-    }
-    
-    for (UIListener listener : list) {
-      listener.onTrigger();
-    }
+    triggerListeners(UIListener.MOUSE_PRESSED);
   }
+  
   protected void mouseReleased() {
-    ArrayList<UIListener> list = listeners.get(UIListener.MOUSE_RELEASED);
-    if (list == null) {
-      return;
-    }
-    
-    for (UIListener listener : list) {
-      listener.onTrigger();
-    }
+    triggerListeners(UIListener.MOUSE_RELEASED);
   }
+  
   protected void mouseClicked() {
-    ArrayList<UIListener> list = listeners.get(UIListener.MOUSE_CLICKED);
-    if (list == null) {
-      return;
-    }
-    
-    for (UIListener listener : list) {
-      listener.onTrigger();
-    }
+    triggerListeners(UIListener.MOUSE_CLICKED);
   }
 
   protected void keyPressed() {
-    ArrayList<UIListener> list = listeners.get(UIListener.KEY_PRESSED);
-    if (list == null) {
-      return;
-    }
-    
-    for (UIListener listener : list) {
-      listener.onTrigger();
-    }
+    triggerListeners(UIListener.KEY_PRESSED);
   }
+  
   protected void keyReleased() {
-    ArrayList<UIListener> list = listeners.get(UIListener.KEY_RELEASED);
-    if (list == null) {
-      return;
-    }
-    
-    for (UIListener listener : list) {
-      listener.onTrigger();
-    }
+    triggerListeners(UIListener.KEY_RELEASED);
   }
+  
   protected void keyTyped() {
-    ArrayList<UIListener> list = listeners.get(UIListener.KEY_TYPED);
-    if (list == null) {
-      return;
-    }
-    
-    for (UIListener listener : list) {
-      listener.onTrigger();
-    }
+    triggerListeners(UIListener.KEY_TYPED);
   }
   
   protected void submit() {
-    ArrayList<UIListener> list = listeners.get(UIListener.SUBMIT);
+    triggerListeners(UIListener.SUBMIT);
+  }
+  
+  private void triggerListeners(int id) {
+    ArrayList<UIListener> list = listeners.get(id);
     if (list == null) {
       return;
     }
